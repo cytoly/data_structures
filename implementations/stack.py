@@ -1,43 +1,42 @@
-# array implementation
-class Stack(object):
+class Stack:
     def __init__(self, limit=5):
         self.limit = limit
-        self.stk = []
+        self.__top = -1
+        self.__stk = []
 
     def is_empty(self):
-        return len(self.stk) <= 0
+        return self.__top <= -1
 
     def push(self, data):
-        if len(self.stk) >= self.limit:
+        if self.__top >= self.limit:
             raise OverflowError("stack limit reached")
-        self.stk.append(data)
+        self.__top += 1
+        self.__stk.append(data)
 
     def pop(self):
         if self.is_empty():
             return print("StackUnderFlow!")
-        return self.stk.pop()
+        self.__top -= 1
+        return self.__stk.pop()
 
     def peek(self):
         if self.is_empty():
             return print("StackUnderFlow!")
-        return self.stk[-1]
+        return self.__stk[self.__top]
 
     def size(self) -> int:
-        return len(self.stk)
+        return self.__top + 1
 
 
 if __name__ == "__main__":
-    stk = Stack(3)
-
-    # inserting the elements
-    stk.push(1)
+    stk = Stack(20)
     stk.push(2)
     stk.push(3)
-
-    # popping and peeking
-    print(stk.peek()) # 3
-    item = stk.pop()
-    print(item) # 3
-    print(stk.peek())
+    stk.push(5)
     print(stk.size())
-    print(stk.is_empty()) # False
+    print(stk.is_empty())
+    print(stk.peek())
+    print(stk.pop())
+    print(stk.pop())
+    print(stk.pop())
+    print(stk.is_empty())
